@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    <title>Search primers</title>
+    <style>
+        div.nav {
+            position: fixed;
+            width: 10%;
+            background-color: 	#B0C4DE;
+            height: 100%;
+            overflow: auto;
+        }
+        ul{
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        li a {
+            display: block;
+            color: #000;
+            padding: 8px 16px;
+            text-decoration: none;
+        }
+        li a.active {
+            background-color: #778899;
+            color: white;
+        }
+        li a:hover:not(.active) {
+            background-color: #555;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <p style="margin-left: 5%;">Navigation</p>
+        <ul>
+            <li><a href="/primerdatabase/"><i class="fa fa-home"></i>  Home</a></li>
+            <li><a href="/primerdatabase/add"><i class="fa fa-plus"></i>  Add primer</a></li>
+            <li><a class="active" href="/primerdatabase/search"><i class="fa fa-search"></i>  Search primers</a></li>
+        </ul>
+    </div>
+    <div style="margin-left:10%;padding:1px 16px;height:70px;">
+        <h1>Search primers by gene</h1>
+    </div>
+    <div style="margin-left:10%;padding:1px 16px;height:1000px;">
+    {% if primers %}
+        <table>
+            <tr>
+                <th>Exon</th>
+                <th>Direction</th>
+                <th>Sequence</th>
+            </tr>
+            {% for primer in primers %}
+            <tr>
+                <td>{{ primer.exon }}</td>
+                <td>{{ primer.direction }}</td>
+                <td>{{ primer.seq }}</td>
+                <td><a href="{% url 'edit' primer.primer_id %}">Edit primer</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    {% else %}
+    <form method="get">
+        {% csrf_token %}
+        <select name="gene">
+            {% for gene in genes %}
+                <option value="{{ gene }}">{{ gene }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Search">
+    </form>
+        <p>Note: different types of primers?</p>
+    {% endif %}
+    </div>
+</body>
+</html>
+
+<!-- https://rayed.com/wordpress/?p=1266 -->

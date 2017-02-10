@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    <title>Add primer to database</title>
+    <style>
+        div.nav {
+            position: fixed;
+            width: 10%;
+            background-color: 	#B0C4DE;
+            height: 100%;
+            overflow: auto;
+        }
+        ul{
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        li a {
+            display: block;
+            color: #000;
+            padding: 8px 16px;
+            text-decoration: none;
+        }
+        li a.active {
+            background-color: #778899;
+            color: white;
+        }
+        li a:hover:not(.active) {
+            background-color: #555;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <p style="margin-left: 5%;">Navigation</p>
+        <ul>
+            <li><a href="/primerdatabase/"><i class="fa fa-home"></i>  Home</a></li>
+            <li><a class="active" href="/primerdatabase/add"><i class="fa fa-plus"></i>  Add primer</a></li>
+            <li><a href="/primerdatabase/search"><i class="fa fa-search"></i>  Search primers</a></li>
+        </ul>
+    </div>
+
+    <div style="margin-left:10%;padding:1px 16px;height:70px;">
+        <h1>Add primer to database</h1>
+    </div>
+    <div style="margin-left:10%;padding:1px 16px;height:1000px;">
+    <form method="post">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <p>
+            <input type="submit" value="Add">
+        </p>
+    </form>
+    {% if success %}
+        <p style="color:#32CD32">Primer successfully added to database.</p>
+    {% endif %}
+    </div>
+</body>
+</html>
